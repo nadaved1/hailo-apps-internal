@@ -1,0 +1,27 @@
+---
+- name: Perform System Maintenance
+  hosts: all
+  become: true  # This tells Ansible to run as sudo
+  
+  tasks:
+    - name: Update apt cache (Debian/Ubuntu)
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+      when: ansible_os_family == "Debian"
+
+    - name: Upgrade all packages
+      package:
+        name: "*"
+        state: latest
+
+    - name: Ensure a specific tool is installed (example)
+      package:
+        name: 
+          - curl
+          - hailo-all
+          - git
+          - python3-pip
+          - python3
+        state: present
+        
