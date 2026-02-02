@@ -20,8 +20,8 @@
       become: true
       register: whoami_become_result
       changed_when: false
-- name: Debug whoami with become
-  debug:
-    msg: "Running with become as: {{ whoami_become_result.stdout }}"
+    - name: Debug whoami with become
+      debug:
+        msg: "Running with become as: {{ whoami_become_result.stdout }}"
   tasks:
     - command: id
