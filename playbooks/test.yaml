@@ -23,5 +23,14 @@
     - name: Debug whoami with become
       debug:
         msg: "Running with become as: {{ whoami_become_result.stdout }}"
+    - name: Debug inventory file location
+      debug:
+        msg: "{{ inventory_file }}"
+    - name: Show connection info
+      debug:
+        msg: 
+          - "ansible_user: {{ ansible_user | default('not set') }}"
+          - "ansible_become: {{ ansible_become | default('not set') }}"
+          - "ansible_become_user: {{ ansible_become_user | default('not set') }}"
   tasks:
     - command: id
