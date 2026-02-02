@@ -36,8 +36,14 @@
           - python3-pip
           - python3
         state: present
+    - name: Clone the Repo
+      become: true
+      ansible.builtin.git:
+        repo: "https://github.com/nadaved1/hailo-apps-internal.git"
+        dest: "/tmp/hailo-apps-internal"
+        version: dev
     - name: Install the GH
       become: true
-      ansible.builtin.script: ../install.sh
-
-        
+      ansible.builtin.shell: |
+        cd /tmp/hailo-apps-internal
+        sudo ./install.sh
