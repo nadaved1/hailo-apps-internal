@@ -1,21 +1,23 @@
 ---
-- name: Perform System Maintenance
+- name: Basic Installation
   hosts: all
   become: true  # This tells Ansible to run as sudo
   
   tasks:
     - name: Update apt cache (Debian/Ubuntu)
-      apt:
+      ansible.builtin.apt:
         update_cache: yes
+        upgrade: yes
         cache_valid_time: 3600
       when: ansible_os_family == "Debian"
-
     - name: Upgrade all packages
       package:
         name: "*"
         state: latest
-
-    - name: Ensure a specific tool is installed (example)
+    - name: Remove un-needed packages
+      ansible.builtin.apt:
+        autoremove: yes
+    - name: Install dependencies
       package:
         name: 
           - curl
