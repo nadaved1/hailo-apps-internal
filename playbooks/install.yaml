@@ -38,6 +38,6 @@
         state: present
     - name: Install the GH
       become: true
-      ansible.builtin.script: install.sh
+      ansible.builtin.script: ../install.sh
 
         
