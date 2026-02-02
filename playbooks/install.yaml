@@ -4,6 +4,12 @@
   become: true  # This tells Ansible to run as sudo
   
   tasks:
+    - name: Verify effective user (should be root)
+      command: id -u
+      register: idu
+      changed_when: false
+      - debug:
+        msg: "Effective UID: {{ idu.stdout }}"
     - name: Update apt cache (Debian/Ubuntu)
       ansible.builtin.apt:
         update_cache: yes
