@@ -2,14 +2,17 @@
 - name: Basic Installation
   hosts: all
   become: true  # This tells Ansible to run as sudo
-  
-  tasks:
-    - name: Verify effective user (should be root)
+
+  pre_tasks:
+    - name: Verify effective user (should be 0)
       command: id -u
       register: idu
       changed_when: false
-    - debug:
-      msg: "Effective UID: {{ idu.stdout }}"
+    - name: Debug User
+      debug:
+        msg: "Effective UID: {{ idu.stdout }}"
+        
+  tasks:
     - name: Update apt cache (Debian/Ubuntu)
       ansible.builtin.apt:
         update_cache: yes
