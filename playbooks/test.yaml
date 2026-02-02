@@ -1,4 +1,12 @@
 - hosts: all
   become: true
+  pre_tasks:
+    - name: Verify effective user (should be 0)
+      command: id -u
+      register: idu
+      changed_when: false
+    - name: Debug User
+      debug:
+        msg: "Effective UID: {{ idu.stdout }}"
   tasks:
     - command: id
