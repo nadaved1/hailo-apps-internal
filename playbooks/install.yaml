@@ -8,8 +8,8 @@
       command: id -u
       register: idu
       changed_when: false
-      - debug:
-        msg: "Effective UID: {{ idu.stdout }}"
+    - debug:
+      msg: "Effective UID: {{ idu.stdout }}"
     - name: Update apt cache (Debian/Ubuntu)
       ansible.builtin.apt:
         update_cache: yes
