@@ -1,7 +1,7 @@
 ---
 - name: Basic Installation
   hosts: all
-  become: true  # This tells Ansible to run as sudo
+  become: true
 
   pre_tasks:
     - name: Verify effective user (should be 0)
