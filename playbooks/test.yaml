@@ -8,5 +8,20 @@
     - name: Debug User
       debug:
         msg: "Effective UID: {{ idu.stdout }}"
+    - name: Test sudo access
+      ansible.builtin.command: whoami
+      register: whoami_result
+      changed_when: false
+    - name: Debug whoami
+      debug:
+        msg: "Running as: {{ whoami_result.stdout }}"
+    - name: Test sudo with become
+      ansible.builtin.command: whoami
+      become: true
+      register: whoami_become_result
+      changed_when: false
+- name: Debug whoami with become
+  debug:
+    msg: "Running with become as: {{ whoami_become_result.stdout }}"
   tasks:
     - command: id
